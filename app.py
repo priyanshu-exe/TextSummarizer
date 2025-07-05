@@ -27,11 +27,11 @@ def summary (input):
 
 gr.close_all()
 
-# demo = gr.Interface(fn=summary, inputs="text",outputs="text")
+
 demo = gr.Interface(fn=summary,
                     inputs=[gr.Textbox(label="Input text to summarize",lines=6)],
                     outputs=[gr.Textbox(label="Summarized text",lines=4)],
-                    title="Text Summarizer - @PriyanshuDas",
+                    title="Text Summarizer - @Priyanshu Das",
                     description="THIS APPLICATION WILL BE USED TO SUMMARIZE THE TEXT")
 demo.launch()
 
