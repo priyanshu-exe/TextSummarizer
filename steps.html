@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolt.DIY Installation Guide</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --success: #22c55e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transform: translateY(0);
+            transition: transform 0.2s ease;
+        }
+
+        .hero:hover {
+            transform: translateY(-2px);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+            background: linear-gradient(120deg, var(--primary) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--gray-700);
+            font-size: 1.1rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--gray-900);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 1.5rem;
+            background: var(--primary);
+            margin-right: 1rem;
+            border-radius: 2px;
+        }
+
+        .step {
+            position: relative;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 0.75rem;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            transition: all 0.2s ease;
+        }
+
+        .step:hover {
+            background: white;
+            border-color: var(--primary-light);
+            transform: translateX(4px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .code-block {
+            background: var(--gray-900);
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Monaco', 'Consolas', monospace;
+            margin: 1rem 0;
+            position: relative;
+            overflow-x: auto;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .code-block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .code-block::after {
+            content: 'Click to copy';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .code-block:hover::after {
+            opacity: 1;
+        }
+
+        .code-block.copied {
+            background: var(--success);
+        }
+
+        .link {
+            color: var(--primary);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: var(--primary);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.2s ease;
+        }
+
+        .link:hover {
+            color: var(--primary-dark);
+        }
+
+        .link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .or-divider {
+            text-align: center;
+            margin: 1rem 0;
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .step {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1 class="title">Bolt.DIY Installation Guide</h1>
+            <p class="subtitle">Complete setup guide for your development environment</p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Initial Setup Requirements</h2>
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Install Git</div>
+                </div>
+                <p>Get started by downloading and installing Git from:</p>
+                <a href="https://git-scm.com" class="link" target="_blank">https://git-scm.com</a>
+                
+                <div class="or-divider">OR</div>
+                
+                <p>Download the project directly:</p>
+                <a href="https://github.com/stackblitz-labs/bolt.diy/releases/tag/v0.0.6" class="link" target="_blank">Download v0.0.6 from GitHub Releases</a>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Set Up Node.js</div>
+                </div>
+                <p>Install the LTS version of Node.js from:</p>
+                <a href="https://nodejs.org" class="link" target="_blank">https://nodejs.org</a>
+                <p>Verify your installation:</p>
+                <div class="code-block">node --version
+npm --version</div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Install PNPM Package Manager</div>
+                </div>
+                <p>Install PNPM globally using npm:</p>
+                <div class="code-block">npm install -g pnpm</div>
+                <p>Verify the installation:</p>
+                <div class="code-block">pnpm --version</div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Install Visual C++ Redistributable</div>
+                </div>
+                <p>Install Visual C++ Redistributable for Windows:</p>
+                <a href="https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist" class="link" target="_blank">Download from Microsoft</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Project Setup</h2>
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Clone Repository</div>
+                </div>
+                <p>Clone the project repository:</p>
+                <div class="code-block">git clone https://github.com/stackblitz-labs/bolt.diy.git</div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Project Navigation</div>
+                </div>
+                <p>Navigate to the project directory:</p>
+                <div class="code-block">cd bolt.diy</div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Environment Setup</div>
+                </div>
+                <p>Set up your environment configuration:</p>
+                <div class="code-block">copy .env.example .env.local</div>
+                <p>Configure your environment variables in the .env.local file</p>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Install Dependencies</div>
+                </div>
+                <p>Install all required project dependencies:</p>
+                <div class="code-block">pnpm install</div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Start Development Server</div>
+                </div>
+                <p>Launch the development server:</p>
+                <div class="code-block">pnpm run dev</div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">Access Application</div>
+                </div>
+                <p>Open your browser and navigate to:</p>
+                <div class="code-block">http://localhost:5173</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add hover effects to steps
+        document.querySelectorAll('.step').forEach(step => {
+            step.addEventListener('mouseenter', () => {
+                step.style.transform = 'translateX(8px)';
+            });
+            
+            step.addEventListener('mouseleave', () => {
+                step.style.transform = 'translateX(0)';
+            });
+        });
+
+        // Copy code blocks functionality with visual feedback
+        document.querySelectorAll('.code-block').forEach(block => {
+            block.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(block.innerText);
+                    block.classList.add('copied');
+                    
+                    // Show success message
+                    const message = document.createElement('div');
+                    message.textContent = 'Copied!';
+                    message.style.position = 'absolute';
+                    message.style.right = '8px';
+                    message.style.top = '8px';
+                    message.style.background = 'var(--success)';
+                    message.style.color = 'white';
+                    message.style.padding = '4px 8px';
+                    message.style.borderRadius = '4px';
+                    message.style.fontSize = '12px';
+                    
+                    block.style.position = 'relative';
+                    block.appendChild(message);
+                    
+                    setTimeout(() => {
+                        block.classList.remove('copied');
+                        message.remove();
+                    }, 1000);
+                } catch (err) {
+                    console.error('Failed to copy:', err);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
